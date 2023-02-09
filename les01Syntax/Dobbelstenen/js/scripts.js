@@ -32,7 +32,7 @@ for (let i = 0; i < players.length; i++) {
 // show winner
 
 console.log('\n WINNAAR: ');
-console.log('%color: black; background-color: yellow;');
+console.log(`%c ${getWinner(scores, players)}`, 'background: black; color: yellow');
 console.log(`${getWinner(scores, players)}`);
 
 /* -------------------- */
