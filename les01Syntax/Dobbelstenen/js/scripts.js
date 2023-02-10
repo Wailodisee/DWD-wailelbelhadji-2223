@@ -32,8 +32,8 @@ for (let i = 0; i < players.length; i++) {
 // show winner
 
 console.log('\n WINNAAR: ');
-console.log(`%c ${getWinner(scores, players)}`, 'background: black; color: yellow');
-console.log(`${getWinner(scores, players)}`);
+console.log(`%c ${getWinner(scores, players)}`, 'background: yellow; color: black; padding: 10px; font-style: italic; font-size: 14px; text-transform: uppercase');
+
 
 /* -------------------- */
 
