@@ -29,14 +29,14 @@ frm.addEventListener('submit', function(e) {
     msgMaat.innerHTML = '';
 
 
-     // check lege email 
+    // check lege email 
     if (inpMail.value == '') {
         msgMail.innerHTML = 'Vul een mail in !';
         numErrors++;
     }
 
-     // check lege maat
-     if (inpMaat.value == '') {
+    // check lege maat
+    if (inpMaat.value == '') {
         msgMaat.innerHTML = 'Vul een maat in !';
         numErrors++;
     }
@@ -52,17 +52,17 @@ frm.addEventListener('submit', function(e) {
 
     if (numErrors == 0) {
         price.innerHTML = (`Je keuze: ${captShoe.innerHTML} maat ${inpMaat.value}(totaalprijs: € ${basisprijs})`);
-    } 
+    }
 });
 
 
 thumbLinks.forEach(lnk => {
     lnk.addEventListener('click', function(e) {
-       e.preventDefault ();
-       document.querySelector('#model .selected').classList.remove('selected');
-       lnk.classList.add('selected');
-       imgShoe.src = lnk.href;
-       captShoe.innerHTML = lnk.textContent;
+        e.preventDefault();
+        document.querySelector('#model .selected').classList.remove('selected');
+        lnk.classList.add('selected');
+        imgShoe.src = lnk.href;
+        captShoe.innerHTML = lnk.textContent;
     });
 });
 
