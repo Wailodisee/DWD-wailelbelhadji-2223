@@ -45,6 +45,7 @@ function gemiddeldeberekening(spelers) {
     let winst = juistvier.length * 500;
     winst += juistdrie.length * 100;
     winst += juisttwee.length * 10;
+    // eslint-disable-next-line no-magic-numbers
     winst += juisteen.length * 2.5;
     winst /= spelers;
     return winst;
