@@ -1,0 +1,41 @@
+body {
+    background-color: rgba(216, 205, 241, 255);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-weight: normal;
+
+}
+
+img {
+    width: 250px;
+    height: 230px;
+}
+
+.toevoegen {
+    display: flex;
+}
+
+.labels {
+    display: block;
+    padding-left: 45px;
+}
+
+.naambieder {
+    display: flex;
+    align-items: center;
+}
+
+.prijsbod {
+    display: flex;
+    align-items: center;
+}
+
+input {
+    height: 15px;
+}
+
+button {
+    padding: 7px;
+}
