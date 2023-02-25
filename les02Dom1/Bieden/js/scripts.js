@@ -13,7 +13,7 @@ mijnbutton.addEventListener('click', function() {
         price.innerHTML = ('er is nog geen bod uitgebracht');
     }
     if (bod > hoogsteBod) {
-        price.innerHTML = (`gefeliciteerd! ${naam.value}, je hebt momenteel het hoogste bod`);
+        price.innerHTML = ('gefeliciteerd!, je hebt momenteel het hoogste bod');
         hoogsteBod = bod;
         hoogsteBieder = naam;
     }
