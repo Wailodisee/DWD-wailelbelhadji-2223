@@ -24,16 +24,17 @@ mijnbutton.addEventListener('click', function(e) {
         tasks.innerHTML += htmlString;
     }
     else if (datePicker != '') {
-         const htmlString = `<div class="task"><span class="${kleur} priority material-icons">assignment</span><p class="tasktext">${textarea}<span class="deadline">(deadline: ${datePicker})</span></p><span class="complete material-icons">more_horiz</span></div>`;
-    tasks.innerHTML += htmlString;  
+        const htmlString = `<div class="task"><span class="${kleur} priority material-icons">assignment</span><p class="tasktext">${textarea}<span class="deadline">(deadline: ${datePicker})</span></p><span class="complete material-icons">more_horiz</span></div>`;
+        tasks.innerHTML += htmlString;
     }
 });
 
 tasks.addEventListener('click', function(e) {
     const target = e.target;
-   if (target.classList.contains('complete')) {
-      const spantask = target.parentElement;
-      const greenarrow = spantask.querySelector('.complete');
-      greenarrow.innerHTML = 'done';
-   }
+    if (target.classList.contains('complete')) {
+        const spantask = target.parentElement;
+        const greenarrow = spantask.querySelector('.complete');
+        greenarrow.innerHTML = 'done';
+        greenarrow.style.color = 'green';
+    }
 });
