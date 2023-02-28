@@ -1,47 +1,39 @@
 const tasks = document.querySelector('#tasks');
 const mijnbutton = document.querySelector('#btnSubmit');
 
-
-mijnbutton.addEventListener('click', function() {
-    const textarea = mijnbutton.querySelector('#txtTask').value;
+mijnbutton.addEventListener('click', function(e) {
+    e.preventDefault();
+    const textarea = document.querySelector('#txtTask').value;
     const datePicker = document.querySelector('#datDeadline').value;
     const prio = document.querySelector('#selPriority').value;
-    const task = document.querySelector('#txtTask textarea').value;
 
-    let klasse = '';
+
+    let kleur = '';
 
     if (prio == 'low') {
-        klasse = 'green';
+        kleur = 'green';
     }
     else if (prio == 'normal') {
-        klasse = 'orange';
+        kleur = 'orange';
     }
     else if (prio == 'high') {
-        klasse = 'red';
+        kleur = 'red';
     }
+    if (datePicker == '') {
+        const htmlString = `<div class="task"><span class="${kleur} priority material-icons">assignment</span><p class="tasktext">${textarea}</span></p><span class="complete material-icons">more_horiz</span></div>`;
+        tasks.innerHTML += htmlString;
+    }
+    else if (datePicker != '') {
+         const htmlString = `<div class="task"><span class="${kleur} priority material-icons">assignment</span><p class="tasktext">${textarea}<span class="deadline">(deadline: ${datePicker})</span></p><span class="complete material-icons">more_horiz</span></div>`;
+    tasks.innerHTML += htmlString;  
+    }
+});
 
-    if (datePicker != '') {
-        const htmlString = `<div$ class="task"><span class="priority material-icons">assignment</span><p class="tasktext">${textarea}<span class="deadline">(deadline: ${datePicker})</span></p><span class="complete material-icons">more_horiz</span></div${klasse}>;`;
-        tasks.innerHTML += htmlString;
-    }
-    if (datePicker === '') {
-        const htmlString = `<div class="task"><span class="priority material-icons">assignment</span><p class="tasktext">${textarea}</p><span class="complete material-icons">more_horiz</span></div>`;
-        tasks.innerHTML += htmlString;
-    }
-    if (prio != '') {
-        const htmlString = `<div$ class="task"><span class="priority material-icons">assignment</span><p class="tasktext">${textarea}<span class="deadline">(deadline: ${prio})</span></p><span class="complete material-icons">more_horiz</span></div${klasse}>;`;
-        tasks.innerHTML += htmlString;
-    }
-    if (prio === '') {
-        const htmlString = `<div class="task"><span class="priority material-icons">assignment</span><p class="tasktext">${textarea}</p><span class="complete material-icons">more_horiz</span></div>`;
-        tasks.innerHTML += htmlString;
-    }
-    if (task != '') {
-        const htmlString = `<div$ class="task"><span class="priority material-icons">assignment</span><p class="tasktext">${textarea}<span class="deadline">(deadline: ${task})</span></p><span class="complete material-icons">more_horiz</span></div${klasse}>;`;
-        tasks.innerHTML += htmlString;
-    }
-    if (task === '') {
-        const htmlString = `<div class="task"><span class="priority material-icons">assignment</span><p class="tasktext">${textarea}</p><span class="complete material-icons">more_horiz</span></div>`;
-        tasks.innerHTML += htmlString;
-    }
+tasks.addEventListener('click', function(e) {
+    const target = e.target;
+   if (target.classList.contains('complete')) {
+      const spantask = target.parentElement;
+      const greenarrow = spantask.querySelector('.complete');
+      greenarrow.innerHTML = 'done';
+   }
 });

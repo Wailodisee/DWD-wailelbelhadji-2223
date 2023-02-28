@@ -9,8 +9,8 @@ h1 {
 }
 
 img {
-    width: 250px;
     height: 230px;
+    width: 250px;
 }
 
 .toevoegen {
@@ -23,13 +23,13 @@ img {
 }
 
 .naambieder {
-    display: flex;
     align-items: center;
+    display: flex;
 }
 
 .prijsbod {
-    display: flex;
     align-items: center;
+    display: flex;
 }
 
 input {
