@@ -1,0 +1,70 @@
+body {
+    background-color: rgba(238, 240, 195, 255);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#lettergrootte {
+    display: flex;
+}
+
+#kleur {
+    align-items: center;
+    display: flex;
+    gap: 5px;
+}
+
+#inputstijlen {
+    display: block;
+}
+.pxslider {
+    display: flex;
+    gap: 10px;
+}
+
+#buttons {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+button {
+    padding: 6px 10px;
+}
+
+#inputtext p {
+    background-color: rgba(221, 221, 221, 255);
+    border: 2px solid rgba(188, 188, 185, 255);
+    height: 150px;
+    width: 500px;
+    margin: 15px;
+}
+/*stijlen*/
+
+.stijl1 {
+    text-shadow: 3px 3px 3px gray;
+}
+
+.stijl2 {
+    background-image: linear-gradient(to right, #ff0000, #0e623c);
+}
+
+.stijl3 {
+    transform: rotate(180deg);
+}
+
+/*hover effecten*/
+
+#inputbutton1:hover {
+    background-color: rgb(50, 49, 49);
+    color: white;
+    transition: background 0.2s;
+}
+#inputbutton2:hover {
+    background-color: rgb(50, 49, 49);
+    color: white;
+    transition: background 0.2s;
+}
+#inputbutton3:hover {
+    background-color: rgb(50, 49, 49);
+    color: white;
+    transition: background 0.2s;
+}
