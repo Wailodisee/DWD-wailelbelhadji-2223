@@ -11,6 +11,11 @@ body {
 img {
    max-width: 100%;
 }
+ul li{
+list-style: none;
+   display: flex;
+   flex-flow: row normal;
+}
 .thumbs {
    display: flex;
    justify-content: space-between;
