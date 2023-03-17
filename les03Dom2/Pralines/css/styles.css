@@ -15,6 +15,6 @@ img {
 .vetgedrukt {
     font-weight: bold ;
 }
-.uitbrijding {
-    filter : brightness(95%)
+.active {
+    filter : brightness(95%);
 }
