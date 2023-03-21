@@ -1,0 +1,48 @@
+body {
+    background-color: lightgray;
+    font-family: Arial, sans-serif;
+}
+
+blockquote {
+    background-color: #e3e7ea;
+    border-radius: 5px;
+    border: 1px solid #6297bb;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 20px auto;
+    max-width: 700px;
+    padding: 10px 15px;
+}
+
+blockquote::before {
+    color: #6297bb;
+    content: open-quote;
+    font-size: 110px;
+    left: 260px;
+    position: absolute;
+    top: 40px;
+}
+
+blockquote::after {
+    bottom: 370px;
+    color: #6297bb;
+    content: close-quote;
+    font-size: 110px;
+    position: absolute;
+    right: 260px;
+}
+
+#imgChuck {
+    display: block;
+    margin: 0 auto;
+    max-width: 200px;
+}
+
+
+#selectType {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    width: 100px;
+}
