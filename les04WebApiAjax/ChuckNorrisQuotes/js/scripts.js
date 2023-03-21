@@ -23,17 +23,6 @@ async function fetchRandom() {
 }
 fetchRandom();
 
-selectType.addEventListener('change', async function() {
-    const urlcat = 'https://api.chucknorris.io/jokes/random?category=' + selectType.value;
-    const resp = await fetch(urlcat);
-    if (!resp.ok) {
-        console.log('Een error werd gevonden met een quotes in een category.' + resp.statusText);
-        return;
-    }
-    const data = await resp.json();
-    blockquotetweet.innerHTML = data.value;
-});
-
 async function selectedCategory() {
     const urlcategory = 'https://api.chucknorris.io/jokes/categories';
 
@@ -48,3 +37,15 @@ async function selectedCategory() {
     }
 }
 selectedCategory();
+
+
+selectType.addEventListener('change', async function() {
+    const urlcat = 'https://api.chucknorris.io/jokes/random?category=' + selectType.value;
+    const resp = await fetch(urlcat);
+    if (!resp.ok) {
+        console.log('Een error werd gevonden met een quotes in een category.' + resp.statusText);
+        return;
+    }
+    const data = await resp.json();
+    blockquotetweet.innerHTML = data.value;
+});
