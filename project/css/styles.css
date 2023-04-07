@@ -27,14 +27,14 @@ header p {
 }
 
 header p:hover {
-	border-bottom: 2px solid white;
+	border-bottom: 5px solid white;
 	padding: 10px;
+	text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
 img {
 	border-radius: 50px;
 	height: 130px;
-	width: 130px;
 }
 
 header h1 {
@@ -43,7 +43,22 @@ header h1 {
 	position: absolute;
 	top: 0;
 }
-
+main {
+	height: 100%;
+}
+.spatie {
+	height: 274.5px;
+}
+.contact a {
+	text-decoration: none;
+}
+.contact li {
+	display: inline-block;
+	margin-right: px; /* Pour ajouter un peu d'espace entre les images */
+  }
+.contact li img {
+	height: 23px;
+}
 /*footer*/
 
 footer {
@@ -53,9 +68,14 @@ footer {
 	font-style: italic;
 	font-weight: 800;
 	height: 85px;
-	position: absolute;
+	position: relative;
 	text-align: center;
 	width: 100%;
+	transition: all 0.5s ease;
+}
+footer p {
+	margin: 0;
+	padding: 2px;
 }
 
 /* Search bar*/
@@ -80,6 +100,8 @@ footer {
 	margin: 10px;
 }
 
+/*searchbar*/
+
 #text {
 	border-radius: 5px;
 	border: none;
@@ -87,6 +109,8 @@ footer {
 	padding: 12px;
 	width: 55%;
 }
+
+/*btnopzoeken*/
 
 #btnopzoeken {
 	background-color: #4CAF50;
@@ -136,16 +160,120 @@ footer {
 	margin-right: 10px;
 	padding: 5px 10px;
 }
+
+.sound--active {
+	border: 2px solid #000000;
+  }
+
 .sound__button {
 	background: url(../img/button_normal.webp) no-repeat;
 	border: 0;
 	cursor: pointer;
+	background-color: #979595;
+	border-radius: 50%;
 	height: 94px;
 	left: 0;
 	top: 0;
 	width: 94px;
- }
- 
- .sound__button:active {
+}
+
+.sound__button:active {
 	background: url(../img/button_down.webp) no-repeat;
- }
+}
+
+#imgplaats {
+	width: 40px;
+	height: 40px;
+}
+
+.persoonlijk {
+	display: flex;
+	text-align: center;
+}
+
+button.btnfav {
+	background-color: #4CAF50;
+	color: rgb(0, 0, 0);
+	border: black;
+	padding: 4px 4px;
+	font-size: 16px;
+	margin: 10px;
+	cursor: pointer;
+	border-radius: 100px;
+	width: 35px;
+	height: 30px;
+}
+
+button.btnfav:hover {
+	background-color: rgb(0, 0, 0);
+	color: #4CAF50;
+	transition: background 0.3s;
+
+}
+div.plaatsbuttons {
+	display: flex;
+}
+
+span.naambtn {
+	color: white;
+	font-size: 14px;
+	text-transform: uppercase;
+	overflow: hidden;
+	white-space: nowrap;
+	max-inline-size: 60%;
+}
+span.duurtijd {
+	padding-left: 11px;
+	font-size: 19px;
+	font-style: italic;
+	font-weight: 400;
+	color: rgb(0, 0, 0);
+}
+
+button.btnfav {
+	width: 35px;
+	height: 30px;
+}
+
+img.imgplaats {
+	height: 40px;
+	width: 105px;
+	border-radius: 5px;
+}
+
+#duurtijd {
+	font-size: 17px;
+	font-weight: 600;
+}
+
+.favbuttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+#deletebtn {
+	background-color: #4CAF50;
+	border-radius: 5px;
+	border: none;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.555);
+	color: white;
+	cursor: pointer;
+	padding: 12px 20px;
+	transition: all 0.5s ease;
+}
+
+#deletebtn:hover {
+	background-color: #3a753c;
+}
+
+.counterbtn {
+	font-size: 22px;
+	font-weight: bold;
+	margin: 10px;
+}
+
+.btnfavweg {
+	background-color: red;
+	content: "X";
+}
+
