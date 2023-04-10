@@ -1,9 +1,26 @@
 /* general */
+
 body {
 	background-color: rgba(20, 45, 126, 255);
 	font-family: Arial, sans-serif;
 	margin: 0;
 	overflow-x: hidden;
+}
+
+img {
+	border-radius: 50px;
+	height: 130px;
+}
+
+header h1 {
+	left: 0;
+	padding-left: 10px;
+	position: absolute;
+	top: 0;
+}
+
+.spatie {
+	height: 274.5px;
 }
 
 /*header*/
@@ -23,7 +40,7 @@ header p {
 	font-weight: bolder;
 	padding: 10px;
 	text-transform: uppercase;
-	transition: all 0.5s ease;
+	transition: all 0.5s ease-out;
 }
 
 header p:hover {
@@ -32,33 +49,16 @@ header p:hover {
 	text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
-img {
-	border-radius: 50px;
-	height: 130px;
-}
+/* footer menu */
 
-header h1 {
-	left: 0;
-	padding-left: 10px;
-	position: absolute;
-	top: 0;
-}
-main {
-	height: 100%;
-}
-.spatie {
-	height: 274.5px;
-}
-.contact a {
-	text-decoration: none;
-}
 .contact li {
 	display: inline-block;
-	margin-right: px; /* Pour ajouter un peu d'espace entre les images */
-  }
+}
+
 .contact li img {
 	height: 23px;
 }
+
 /*footer*/
 
 footer {
@@ -68,17 +68,18 @@ footer {
 	font-style: italic;
 	font-weight: 800;
 	height: 85px;
-	position: relative;
 	text-align: center;
+	transition: all 0.5s ease-out;
 	width: 100%;
-	transition: all 0.5s ease;
 }
+
 footer p {
 	margin: 0;
 	padding: 2px;
 }
 
-/* Search bar*/
+/*titels*/
+
 .search {
 	background-color: rgba(66, 64, 180, 255);
 	border-radius: 5px;
@@ -100,7 +101,8 @@ footer p {
 	margin: 10px;
 }
 
-/*searchbar*/
+
+/*searchbar input*/
 
 #text {
 	border-radius: 5px;
@@ -109,6 +111,7 @@ footer p {
 	padding: 12px;
 	width: 55%;
 }
+
 
 /*btnopzoeken*/
 
@@ -120,18 +123,36 @@ footer p {
 	color: white;
 	cursor: pointer;
 	padding: 12px 20px;
-	transition: all 0.5s ease;
+	transition: all 0.5s ease-out;
 }
 
 #btnopzoeken:hover {
 	background-color: #3a753c;
 }
 
+/*p (geen resultaat)*/
+
+p.geenres {
+	color: rgb(184, 47, 47);
+	font-size: 15px;
+	font-style: italic;
+}
+
+/*label searchbar*/
+
+#labelsearch {
+	display: none;
+}
+
+/* div waar buttons komen */
+
 .plaatsbuttons {
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: 10px;
 }
+
+/*div favorite*/
 
 .favorite {
 	background-color: rgba(66, 64, 180, 255);
@@ -142,49 +163,45 @@ footer p {
 	padding: 20px;
 }
 
-#labelsearch {
-	display: none;
-}
+/* div waar fav buttons komen */
 
 .favorietesounds {
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.favorietesounds p {
-	background-color: #f1f1f1;
-	border-radius: 5px;
-	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
-	font-size: 16px;
-	margin-bottom: 10px;
-	margin-right: 10px;
-	padding: 5px 10px;
+/*button die aangeklikt is*/
+
+.btnaangeklikt {
+	border: 2px solid #000000;
 }
 
-.sound--active {
-	border: 2px solid #000000;
-  }
+/*button design*/
 
 .sound__button {
 	background: url(../img/button_normal.webp) no-repeat;
-	border: 0;
-	cursor: pointer;
 	background-color: #979595;
 	border-radius: 50%;
+	border: 0;
+	cursor: pointer;
 	height: 94px;
 	left: 0;
 	top: 0;
 	width: 94px;
 }
 
+.sound {
+	overflow: hidden;
+	position: relative;
+	white-space: nowrap;
+	width: 255px;
+}
+
 .sound__button:active {
 	background: url(../img/button_down.webp) no-repeat;
 }
 
-#imgplaats {
-	width: 40px;
-	height: 40px;
-}
+/*fav btn, img waveform*/
 
 .persoonlijk {
 	display: flex;
@@ -193,15 +210,15 @@ footer p {
 
 button.btnfav {
 	background-color: #4CAF50;
-	color: rgb(0, 0, 0);
-	border: black;
-	padding: 4px 4px;
-	font-size: 16px;
-	margin: 10px;
-	cursor: pointer;
 	border-radius: 100px;
-	width: 35px;
+	border: black;
+	color: rgb(0, 0, 0);
+	cursor: pointer;
+	font-size: 16px;
 	height: 30px;
+	margin: 10px;
+	padding: 4px 4px;
+	width: 35px;
 }
 
 button.btnfav:hover {
@@ -210,6 +227,7 @@ button.btnfav:hover {
 	transition: background 0.3s;
 
 }
+
 div.plaatsbuttons {
 	display: flex;
 }
@@ -217,28 +235,29 @@ div.plaatsbuttons {
 span.naambtn {
 	color: white;
 	font-size: 14px;
-	text-transform: uppercase;
-	overflow: hidden;
-	white-space: nowrap;
 	max-inline-size: 60%;
+	overflow: hidden;
+	text-transform: uppercase;
+	white-space: nowrap;
 }
+
 span.duurtijd {
-	padding-left: 11px;
+	color: rgb(0, 0, 0);
 	font-size: 19px;
 	font-style: italic;
 	font-weight: 400;
-	color: rgb(0, 0, 0);
+	padding-left: 11px;
 }
 
 button.btnfav {
-	width: 35px;
 	height: 30px;
+	width: 35px;
 }
 
 img.imgplaats {
+	border-radius: 5px;
 	height: 40px;
 	width: 105px;
-	border-radius: 5px;
 }
 
 #duurtijd {
@@ -251,6 +270,8 @@ img.imgplaats {
 	justify-content: space-between;
 }
 
+/*btn leegmaken*/
+
 #deletebtn {
 	background-color: #4CAF50;
 	border-radius: 5px;
@@ -259,12 +280,14 @@ img.imgplaats {
 	color: white;
 	cursor: pointer;
 	padding: 12px 20px;
-	transition: all 0.5s ease;
+	transition: all 0.5s ease-out;
 }
 
 #deletebtn:hover {
 	background-color: #3a753c;
 }
+
+/*counter aantal btn*/
 
 .counterbtn {
 	font-size: 22px;
@@ -272,8 +295,5 @@ img.imgplaats {
 	margin: 10px;
 }
 
-.btnfavweg {
-	background-color: red;
-	content: "X";
-}
 
+/*responsive */

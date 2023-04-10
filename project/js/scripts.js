@@ -1,40 +1,81 @@
-const API_KEY = '6lMxs8nXKDtwI0sDNXCbLBxUPxssV6xwknSeanlg';
+// --BRONNEN--
+// 1. https://www.w3schools.com/js/ 
+// 2. Chatgpt ( errors oplossen en enkele regels bij localstorage )
+// 3. https://rogiervdl.github.io/JS-course/summary.html#/
+// 4. https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage
+// 5. https://codepen.io/ (wanneer ik inspiratie of iets anders zocht )
+
+
+/* variabelen declareren*/
+const apiKey = '6lMxs8nXKDtwI0sDNXCbLBxUPxssV6xwknSeanlg';
 const url = 'https://freesound.org/apiv2';
 const plaatsbuttons = document.querySelector('.plaatsbuttons');
 const search = document.querySelector('#btnopzoeken');
 const favoriteSounds = document.querySelector('.favorietesounds');
 
+/* addEvent op btn zoeken*/
+
 search.addEventListener('click', zoekGeluid);
 
-async function zoekGeluid(event) {
-  event.preventDefault();
-  const zoekterm = document.querySelector('#text').value;
-  const data = await fetchData(zoekterm);
-  const zoekresultaten = transformResults(data.results);
-  renderResults(zoekresultaten);
-  attachEventListeners();
+/* Zoekfunctie*/
+
+async function zoekGeluid(e) {
+  e.preventDefault();
+  const trefWoord = document.querySelector('#text').value;
+  const data = await fetchData(trefWoord);// data fetchen van API
+  const zoekresultaten = transformResultsinHTML(data.results);// resultaat transformeren
+
+  /* oproepen van function*/
+  opbrengResultaat(zoekresultaten);
+  Togglefavbtn();
   updateCounter();
+
+  /* geen resultaat bij het opzoeken */
+  const resultaatnull = document.querySelector('.geenres');
+  const soundbtn = document.querySelectorAll('.sound__button');
+
+  if (soundbtn.length == 0) {
+    resultaatnull.innerHTML = `Geen resultaat werd gevonden voor: "${trefWoord}"`;
+  }
+  else {
+    resultaatnull.classList.remove('geenres');
+  }
 }
 
-async function fetchData(zoekterm) {
-  const response = await fetch(`${url}/search/text/?query=${zoekterm}&token=${API_KEY}&fields=id,name,previews,duration,images`);
-  return await response.json();
+/* Data ophalen van het API*/
+
+async function fetchData(trefWoord) {
+  const resp = await fetch(`${url}/search/text/?query=${trefWoord}&token=${apiKey}&fields=id,name,previews,duration,images`);
+  return await resp.json();
 }
 
-function transformResults(results) {
+/* Transformeren van het data*/
+
+function transformResultsinHTML(results) {
   return results.map(resultaat => {
-    const { id, name: naam, images: { waveform_m: afbeelding }, duration: duur, previews: { 'preview-lq-mp3': audioUrl } } = resultaat;
-    return { id, naam, afbeelding, audioUrl, duur };
+    const id = resultaat.id;
+    const naam = resultaat.name;
+    const afbeelding = resultaat.images.waveform_m;
+    const duur = resultaat.duration;
+    const audioBtn = resultaat.previews['preview-hq-mp3'];
+    return { id, naam, afbeelding, audioBtn, duur };
   });
 }
 
-function renderResults(zoekresultaten) {
-  const zoekresultatenHTML = zoekresultaten.map(resultaat => createSoundCard(resultaat)).join('');
-  plaatsbuttons.innerHTML = zoekresultatenHTML;
+/* Resultaat opbrengen*/
+
+function opbrengResultaat(zoekresultaten) {
+  let zoekresultatenHTML = '';
+  zoekresultaten.forEach(resultaat => {
+    zoekresultatenHTML += createSoundhtml(resultaat); // Maak HTML voor elke btn in string zoekresultatenHTML
+  });
+  plaatsbuttons.innerHTML = zoekresultatenHTML; // Plaats HTML in div plaatsbuttons 
 }
 
-function createSoundCard(resultaat) {
-  const duurMetEenCijferNaKomma = resultaat.duur.toFixed(2);
+/* HTML-code genereren voor elke zoekresultaat */
+
+function createSoundhtml(resultaat) {
+  const cijferKomma = resultaat.duur.toFixed(2);
   return `
     <div class="soundwrapper" id="${resultaat.id}">
       <div class="sound">
@@ -45,103 +86,145 @@ function createSoundCard(resultaat) {
           <button class="btnfav" type="button"><span class="material-symbols-outlined">volunteer_activism</span></button>
           <img src="${resultaat.afbeelding}" alt="" class="imgplaats">
         </div>
-        <span class="duurtijd">${duurMetEenCijferNaKomma}s</span>
-        <audio src="${resultaat.audioUrl}" class="sound__audio"></audio>
+        <span class="duurtijd">${cijferKomma}s</span>
+        <audio src="${resultaat.audioBtn}" class="sound__audio"></audio>
       </div>
     </div>
   `;
 }
 
-function attachEventListeners() {
+/* AddEvent toevoegen aan knoppen */
+
+// Zoeken van fav btn om addevent te kunnen doen: favoriet - niet favoriet
+function Togglefavbtn() {
   const favorietKnoppen = document.querySelectorAll('.btnfav');
   favorietKnoppen.forEach((knop) => {
-    knop.addEventListener('click', toggleFavorite);
+    knop.addEventListener('click', favKlik);
   });
 
+  // Zoeken van sound__btn om play - stop  
   const playSoundButtons = document.querySelectorAll('.sound__button');
   playSoundButtons.forEach((button) => {
-    button.addEventListener('click', togglePlaySound);
+    button.addEventListener('click', toggleBtnPlaySound);
   });
 }
 
-function toggleFavorite() {
-  const soundWrapper = this.closest('.soundwrapper');
-  const kopie = soundWrapper.cloneNode(true);
-  if (soundWrapper.parentNode === favoriteSounds) {
+/* favknop wordt geklikt*/
+
+function favKlik() {
+  const soundWrapper = this.closest('.soundwrapper'); // Zoeken van element met class soundWrapper
+  const kopie = soundWrapper.cloneNode(true); // Kopie maken van soundWrapper + noden zijn inhoud
+  if (soundWrapper.parentNode == favoriteSounds) {
     plaatsbuttons.appendChild(kopie);
-    removeFromLocalStorage(soundWrapper.id);
-  } else {
-    favoriteSounds.appendChild(kopie);
-    addToLocalStorage(kopie);
+    verwijderFromLocalStorage(soundWrapper.id); // Verwijderen het btn van localstorage
   }
-  soundWrapper.remove();
-  attachEventListeners();
+
+  else {
+    favoriteSounds.appendChild(kopie);
+    voegToLocalStorage(kopie); // Toevoegen het btn bij localstorage
+  }
+
+  soundWrapper.remove(); // verwijderen van de node soundWrapper
+  Togglefavbtn();
   updateCounter();
 }
 
-function addToLocalStorage(element) {
-const savedFavorites = JSON.parse(localStorage.getItem('favoriteSounds')) || [];
-const soundData = {
-id: element.id,
-innerHTML: element.innerHTML,
-};
-savedFavorites.push(soundData);
-localStorage.setItem('favoriteSounds', JSON.stringify(savedFavorites));
+/* Voeg een geluid toe van localstorage van fav div*/
+
+function voegToLocalStorage(btn) {
+  const savedFavBtn = JSON.parse(localStorage.getItem('favoriteSounds')) || [];
+  const soundData = { id: btn.id, innerHTML: btn.innerHTML, }; // object word gemaakt met id,innerHTML van geselect btn 
+  savedFavBtn.push(soundData); // Voeg het object aan de array savedFav 
+  localStorage.setItem('favoriteSounds', JSON.stringify(savedFavBtn)); // Sla de btn in een array op de localstorage (JSON-string)
 }
 
-function removeFromLocalStorage(id) {
-const savedFavorites = JSON.parse(localStorage.getItem('favoriteSounds')) || [];
-const updatedFavorites = savedFavorites.filter((sound) => sound.id !== id);
-localStorage.setItem('favoriteSounds', JSON.stringify(updatedFavorites));
+/* Verwijder btn uit de localstorage*/
+
+function verwijderFromLocalStorage(id) {
+  const savedFavBtn = JSON.parse(localStorage.getItem('favoriteSounds')) || []; // Haal de fav btn uit localstorage || anders maak lege array 
+  const updatedFavBtn = []; // definieert een lege array
+
+  for (let i = 0; i < savedFavBtn.length; i++) {
+    const soundBtn = savedFavBtn[i];
+
+    if (soundBtn.id !== id) {
+      updatedFavBtn.push(soundBtn); // soundBtn ≠ id dan wordt verwijdert van de array
+    }
+  }
+  localStorage.setItem('favoriteSounds', JSON.stringify(updatedFavBtn));// Sla de nieuwe array op localstorage
 }
 
-function loadFavoriteSounds() {
-const savedFavorites = JSON.parse(localStorage.getItem('favoriteSounds')) || [];
-savedFavorites.forEach((sound) => {
-const soundWrapper = document.createElement('div');
-soundWrapper.classList.add('soundwrapper');
-soundWrapper.id = sound.id;
-soundWrapper.innerHTML = sound.innerHTML;
-favoriteSounds.appendChild(soundWrapper);
-});
+/* Laad favbtn die opgeslagen zijn in localstorage, voeg ze toe bij het refesh in fav div.*/
+
+function laadFavoriteSounds() {
+  const savedFavBtn = JSON.parse(localStorage.getItem('favoriteSounds')) || []; // Haal de fav btn uit localstorage || anders maak lege array
+  savedFavBtn.forEach((sound) => {
+    const soundWrapper = document.createElement('div');
+    soundWrapper.classList.add('soundwrapper');
+    soundWrapper.id = sound.id; // id = id van opgeslagen geluid 
+    soundWrapper.innerHTML = sound.innerHTML; // innerHTML = opgeslagen geluid
+    favoriteSounds.appendChild(soundWrapper);
+  });
 }
 
-function togglePlaySound() {
-const audioElement = this.closest('.sound').querySelector('.sound__audio');
-if (audioElement.paused) {
-audioElement.play();
-this.classList.add('sound__button:active');
-} else {
-audioElement.pause();
-audioElement.currentTime = 0;
-this.classList.remove('sound__button:active');
-}
+/* Speelt het geselecteerde btn af of zet het op pauze.*/
+
+function toggleBtnPlaySound() {
+  const audioElement = this.closest('.sound').querySelector('.sound__audio'); // Zoeken van het dichts .sound 
+
+  // conditie maken 
+
+  if (audioElement.paused) {
+    audioElement.play();
+    this.classList.add('sound__button:active');
+  }
+  else {
+    audioElement.pause();
+    audioElement.currentTime = 0;
+    this.classList.remove('sound__button:active');
+  }
 }
 
+/* Variabelen btn leeg maken */
 const counterBtn = document.querySelector('.counterbtn');
 const deleteBtn = document.querySelector('#deletebtn');
 
+/* Werkt de teller bij, als nieuwe btn komen of gaanweg*/
+
 function updateCounter() {
-const count = favoriteSounds.childElementCount;
-counterBtn.innerHTML = count.toString();
+  const count = favoriteSounds.childElementCount;
+  counterBtn.innerHTML = count.toString();
 }
 
-function removeAllButtons() {
-const soundWrappers = favoriteSounds.querySelectorAll('.soundwrapper');
-soundWrappers.forEach(soundWrapper => {
-const soundButton = soundWrapper.querySelector('.sound__button');
-plaatsbuttons.appendChild(soundWrapper);
-soundButton.classList.remove('sound__button:active');
-});
-favoriteSounds.innerHTML = '';
-updateCounter();
+/* Verwijdert alle btn uit Favorieten, zet teller op nul.*/
+
+function verwijderAllButtons() {
+  const soundWrappers = favoriteSounds.querySelectorAll('.soundwrapper'); // Selecteer elk btn in de lijst favoriteSounds
+  soundWrappers.forEach(soundWrapper => {
+    const soundButton = soundWrapper.querySelector('.sound__button');
+    plaatsbuttons.appendChild(soundWrapper); // Element soundWrapper wordt toegevoegd aan een ander element met de naam plaatsbuttons
+    soundButton.classList.remove('sound__button:active'); // classlist wordt verwijderd van het element soundButton.
+  });
+  favoriteSounds.innerHTML = '';
+  updateCounter();
 }
-deleteBtn.addEventListener('click', removeAllButtons);
 
-favoriteSounds.addEventListener('DOMNodeInserted', updateCounter);
-favoriteSounds.addEventListener('DOMNodeRemoved', updateCounter);
+/* addEvent om alle btn te verwijderen */
 
-loadFavoriteSounds();
-attachEventListeners();
+deleteBtn.addEventListener('click', verwijderAllButtons);
+
+
+favoriteSounds.addEventListener('DOMNodeInserted', updateCounter); // Functie updateCounter word geroepen wanneer iets word toegevoegd bij favoriteSounds
+favoriteSounds.addEventListener('DOMNodeRemoved', updateCounter); // Functie updateCounter word geroepen wanneer iets word verwijdert bij favoriteSounds
+
+
+/* Laden van verschillende function*/
+
+laadFavoriteSounds();
+Togglefavbtn();
 updateCounter();
 
+
+/* 2. responsive maken 
+   5. div waar .sounds komen 
+   */ 
