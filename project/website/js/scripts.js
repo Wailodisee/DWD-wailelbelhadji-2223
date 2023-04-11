@@ -3,7 +3,6 @@
 // 2. Chatgpt ( errors oplossen en enkele regels bij localstorage )
 // 3. https://rogiervdl.github.io/JS-course/summary.html#/
 // 4. https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage
-// 5. https://codepen.io/ (wanneer ik inspiratie of iets anders zocht )
 
 
 /* variabelen declareren*/
@@ -35,10 +34,12 @@ async function zoekGeluid(e) {
   const soundbtn = document.querySelectorAll('.sound__button');
 
   if (soundbtn.length == 0) {
-    resultaatnull.innerHTML = `Geen resultaat werd gevonden voor: "${trefWoord}"`;
+    resultaatnull.innerHTML = `Geen resultaten voor: "${trefWoord}"`;
   }
-  else {
-    resultaatnull.classList.remove('geenres');
+  else 
+  {
+    resultaatnull.innerHTML = 'Gevonden resultaten:';
+    resultaatnull.classList.add('gevondenres');
   }
 }
 
@@ -185,7 +186,7 @@ function toggleBtnPlaySound() {
   }
 }
 
-/* Variabelen btn leeg maken */
+/* Variabelen btn leeg maken + counter */
 const counterBtn = document.querySelector('.counterbtn');
 const deleteBtn = document.querySelector('#deletebtn');
 
@@ -223,8 +224,3 @@ favoriteSounds.addEventListener('DOMNodeRemoved', updateCounter); // Functie upd
 laadFavoriteSounds();
 Togglefavbtn();
 updateCounter();
-
-
-/* 2. responsive maken 
-   5. div waar .sounds komen 
-   */ 

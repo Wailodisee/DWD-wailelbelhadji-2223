@@ -8,19 +8,22 @@ body {
 }
 
 img {
-	border-radius: 50px;
-	height: 130px;
+	border-radius: 60px;
+	height: 120px;
 }
 
 header h1 {
+	align-items: center;
+	height: 30px;
+	justify-content: center;
 	left: 0;
-	padding-left: 10px;
-	position: absolute;
-	top: 0;
+	padding-bottom: 35px;
+	padding-left: 5px;
+	width: 15px;
 }
 
 .spatie {
-	height: 274.5px;
+	height: 300.5px;
 }
 
 /*header*/
@@ -35,7 +38,8 @@ header {
 
 header p {
 	color: #979595;
-	font-size: 22px;
+	display: none;
+	font-size: 18px;
 	font-style: italic;
 	font-weight: bolder;
 	padding: 10px;
@@ -89,14 +93,14 @@ footer p {
 	padding: 20px;
 }
 
-.search p {
-	font-size: 22px;
+.pzoeken {
+	font-size: 18px;
 	font-weight: bold;
 	margin: 10px;
 }
 
 .favorite p {
-	font-size: 22px;
+	font-size: 18px;
 	font-weight: bold;
 	margin: 10px;
 }
@@ -134,8 +138,15 @@ footer p {
 
 p.geenres {
 	color: rgb(184, 47, 47);
-	font-size: 15px;
+	font-size: 16px;
 	font-style: italic;
+	font-weight: bold;
+}
+
+p.gevondenres {
+	color: #000000;
+	font-size: 16px;
+	font-style: bold;
 }
 
 /*label searchbar*/
@@ -172,7 +183,7 @@ p.geenres {
 
 /*button die aangeklikt is*/
 
-.btnaangeklikt {
+.active {
 	border: 2px solid #000000;
 }
 
@@ -199,6 +210,7 @@ p.geenres {
 
 .sound__button:active {
 	background: url(../img/button_down.webp) no-repeat;
+	background-color: #979595;
 }
 
 /*fav btn, img waveform*/
@@ -290,10 +302,57 @@ img.imgplaats {
 /*counter aantal btn*/
 
 .counterbtn {
-	font-size: 22px;
+	font-size: 18px;
 	font-weight: bold;
 	margin: 10px;
 }
 
 
 /*responsive */
+
+
+@media (min-width: 600px) {
+
+	header h1 {
+		left: 0;
+		padding-left: 10px;
+		position: absolute;
+		top: 0;
+	}
+
+	img {
+		border-radius: 80px;
+		height: 100px;
+	}
+
+	header p {
+		font-size: 22px;
+		display: flex;
+		font-style: italic;
+		padding: 10px;
+	}
+
+	.pzoeken {
+		font-size: 22px;
+	}
+
+	.favorite p {
+		font-size: 22px;
+	}
+
+	.counterbtn {
+		font-size: 22px;
+	}
+
+}
+
+@media (min-width: 300px) {
+
+	header h1 {
+		padding-right: 140px;
+	}
+
+	img {
+		height: 100px;
+	}
+}
