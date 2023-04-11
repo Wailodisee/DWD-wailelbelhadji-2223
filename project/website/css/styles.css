@@ -183,7 +183,7 @@ p.gevondenres {
 
 /*button die aangeklikt is*/
 
-.active {
+.activebtn {
 	border: 2px solid #000000;
 }
 
